@@ -13,14 +13,14 @@
 # limitations under the License.
 
 # Use the non-open-source part, if present
--include vendor/allwinner/SEDNAME/BoardConfigVendor.mk
+-include vendor/allwinner/ssa2/BoardConfigVendor.mk
 
 # Use the part that is common between all allwinner
 include device/allwinner/common/BoardConfig.mk
 
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/allwinner/SEDNAME/recovery_keys.c
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/allwinner/ssa2/recovery_keys.c
 
-TARGET_KERNEL_CONFIG := SEDNAME_defconfig
+TARGET_KERNEL_CONFIG := ssa2_defconfig
 
 SW_BOARD_USES_GSENSOR_TYPE := bma250
 SW_BOARD_GSENSOR_XY_REVERT := true

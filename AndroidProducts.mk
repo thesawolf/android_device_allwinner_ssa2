@@ -15,4 +15,4 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/full_SEDNAME.mk
+    $(LOCAL_DIR)/full_ssa2.mk

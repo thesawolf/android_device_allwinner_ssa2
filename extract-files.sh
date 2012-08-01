@@ -1,7 +1,7 @@
 #!/bin/sh
 
 VENDOR=allwinner
-DEVICE=SEDNAME
+DEVICE=ssa2
 
 BASE=../../../vendor/$VENDOR/$DEVICE/proprietary
 rm -rf $BASE/*
