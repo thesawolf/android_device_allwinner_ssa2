@@ -12,17 +12,84 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Use the non-open-source part, if present
--include vendor/allwinner/ssa2/BoardConfigVendor.mk
+TARGET_BOOTLOADER_BOARD_NAME := a10
+TARGET_BOARD_PLATFORM := sun4i
 
-# Use the part that is common between all allwinner
-include device/allwinner/common/BoardConfig.mk
+USE_CAMERA_STUB := false
+BOARD_USES_GENERIC_AUDIO := false
+TARGET_NO_BOOTLOADER := true
+TARGET_NO_RADIOIMAGE := true
 
+#CPU stuff
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
+TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_GLOBAL_CFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
+ARCH_ARM_HAVE_TLS_REGISTER := true
+
+BOARD_HAVE_BLUETOOTH := true
+BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/allwinner/ssa2/vibrator.c
+BOARD_HAS_SDCARD_INTERNAL := true
+
+TARGET_USERIMAGES_USE_EXT4 := true
+BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 268435456
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 1073741824
+BOARD_FLASH_BLOCK_SIZE := 4096
+
+#EGL stuff
+BOARD_EGL_CFG := device/allwinner/ssa2/egl.cfg
+USE_OPENGL_RENDERER := true
+ENABLE_WEBGL := true
+BOARD_USE_SKIA_LCDTEXT := true
+TARGET_BOOTANIMATION_PRELOAD := true
+TARGET_BOOTANIMATION_TEXTURE_CACHE := true
+
+#Recovery Stuff
+#TARGET_RECOVERY_UI_LIB := librecovery_ui_generic
+#TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_generic
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/allwinner/ssa2/recovery_keys.c
+#TARGET_RECOVERY_PRE_COMMAND := "setrecovery"
+BOARD_USE_LEGACY_TOUCHSCREEN := true
+BOARD_HAS_NO_SELECT_BUTTON := true
+BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun/file"
+BOARD_UMS_2ND_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun1/file"
+TARGET_RECOVERY_INITRC := device/allwinner/ssa2/recovery_init.rc
 
-TARGET_KERNEL_CONFIG := ssa2_defconfig
+#Misc stuff
+#TARGET_USE_CUSTOM_LUN_FILE_PATH = "/sys/class/android_usb/android0/f_mass_storage/lun%d/file"
+#TARGET_USE_CUSTOM_SECOND_LUN_NUM := 1
+TARGET_RECOVERY_PRE_COMMAND := "echo -n boot-recovery | busybox dd of=/dev/block/nandf count=1 conv=sync; sync"
+TARGET_PROVIDES_INIT_RC := true
 
-SW_BOARD_USES_GSENSOR_TYPE := bma250
+#Headers stuff
+TARGET_SPECIFIC_HEADER_PATH := device/allwinner/ssa2/libraries/include
+TARGET_HARDWARE_INCLUDE := device/allwinner/ssa2/libraries/include
+
+# Wifi stuff
+BOARD_WIFI_VENDOR                := realtek
+WPA_SUPPLICANT_VERSION           := VER_0_8_X
+BOARD_WPA_SUPPLICANT_DRIVER      := WEXT
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_rtl
+BOARD_HOSTAPD_DRIVER             := WEXT
+BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_rtl
+BOARD_WLAN_DEVICE                := rtl8192cu
+
+WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/8192cu.ko"
+WIFI_DRIVER_MODULE_NAME          := 8192cu
+
+TARGET_CUSTOM_WIFI := ../../hardware/realtek/wlan/wifi_realtek.c
+
+BOARD_KERNEL_BASE := 0x40000000
+BOARD_KERNEL_CMDLINE := console=ttyS0,115200 rw init=/init loglevel=8
+BOARD_KERNEL_PAGESIZE := 2048
+
+TARGET_KERNEL_SOURCE := kernel/allwinner/a10
+TARGET_KERNEL_CONFIG := device/allwinner/ssa2/ssa2_defconfig
+
+SW_BOARD_USES_GSENSOR_TYPE := mma7660
 SW_BOARD_GSENSOR_XY_REVERT := true
 SW_BOARD_GSENSOR_DIRECT_X := true
 SW_BOARD_GSENSOR_DIRECT_Y := true

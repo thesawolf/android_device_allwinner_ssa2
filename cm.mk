@@ -2,7 +2,7 @@
 PRODUCT_RELEASE_NAME := SSA2
 
 # Boot animation
-TARGET_BOOTANIMATION_NAME := horizontal-1024x768
+TARGET_BOOTANIMATION_NAME := vertical-480x800
 
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
@@ -14,7 +14,7 @@ $(call inherit-product, device/allwinner/ssa2/full_ssa2.mk)
 PRODUCT_DEVICE := ssa2
 PRODUCT_NAME := cm_ssa2
 PRODUCT_BRAND := SkytexSkypadAlpha2
-PRODUCT_MODEL := SSA2
+PRODUCT_MODEL := SX-SP715A
 PRODUCT_MANUFACTURER := Allwinner
 
 #Set build fingerprint / ID / Product Name etc

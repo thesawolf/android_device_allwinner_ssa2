@@ -1,3 +1,2 @@
 #!/sbin/sh
-
-# device specific commands to run on postrecoveryboot
+/sbin/insmod /lib/ft4x_ts.ko

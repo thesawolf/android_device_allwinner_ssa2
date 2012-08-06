@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RomConfig>
+	<RomName>Alpha2Wolf Unofficial CyanogenMod 9</RomName>
+	<RomVersion>0.1.0-20120727</RomVersion>
+	<RomCheckUrl>http://goo.gl/TeFp0</RomCheckUrl>
+	<RomElemUrl>http://goo.gl/aULMR</RomElemUrl>
+	<RebootType>0</RebootType>
+</RomConfig>

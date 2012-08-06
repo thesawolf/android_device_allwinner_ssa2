@@ -1,0 +1,134 @@
+import init.sun4i.usb.rc
+
+on early-init
+
+        export EXTERNAL_STORAGE /mnt/sdcard
+        mkdir /mnt/sdcard 0000 system system
+        mkdir /mnt/extsd 0000 system system
+        mkdir /mnt/usbhost1 0000 system system
+        symlink /mnt/sdcard /sdcard
+
+on fs
+
+        symlink /dev/block/nandc /dev/block/boot
+        symlink /dev/block/nandd /dev/block/system
+        symlink /dev/block/nande /dev/block/data
+        symlink /dev/block/nandg /dev/block/recovery
+        symlink /dev/block/nandh /dev/block/cache
+
+        #exec /system/bin/e2fsck -y /dev/block/system
+        #exec /system/bin/e2fsck -y /dev/block/data 
+        #exec /system/bin/e2fsck -y /dev/block/cache
+
+#        mount ext4 /dev/block/system /system wait ro noatime nodev barrier=0 nobh data=writeback noauto_da_alloc
+#        mount ext4 /dev/block/data /data wait noatime nodev barrier=0 nobh data=writeback noauto_da_alloc
+#        mount ext4 /dev/block/cache /cache wait noatime nodev barrier=0 nobh data=writeback noauto_da_alloc
+
+    	mount ext4 /dev/block/nandd /system wait noatime nodev barrier=0
+
+# try to mount /data
+        wait /dev/block/nande
+        mount ext4 /dev/block/nande /data wait noatime nosuid nodev barrier=0
+        setupfs /dev/block/nande
+        umount /data
+        exec /system/bin/logwrapper /system/bin/e2fsck -y /dev/block/nande
+        exec /system/bin/busybox mount -t ext4 -o noatime,nosuid,nodev,barrier=0,journal_checksum,noauto_da_alloc /dev/block/nande /data
+
+# try to mount /cache
+    mount ext4 /dev/block/nandh /cache wait noatime nosuid nodev barrier=0
+        setupfs /dev/block/nandh
+        umount /cache
+        exec /system/bin/logwrapper /system/bin/e2fsck -y /dev/block/nandh
+    exec /system/bin/busybox mount -t ext4 -o noatime,nosuid,nodev,barrier=0,journal_checksum,noauto_da_alloc /dev/block/nandh /cache
+
+    format_userdata /dev/block/nandi skypad
+
+on post-fs
+
+# bluetooth power up/down interface
+        chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+        chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+        chmod 0660 /sys/class/rfkill/rfkill0/state
+        chown bluetooth bluetooth /sys/class/rfkill/rfkill1/type
+        chown bluetooth bluetooth /sys/class/rfkill/rfkill1/state
+        chmod 0660 /sys/class/rfkill/rfkill1/state
+        write /sys/class/rfkill/rfkill0/state 0
+        setprop rw.bluetooth.status "0"
+
+on post-fs-data
+        mkdir /data/misc/wifi 0771 wifi wifi
+        mkdir /data/misc/wifi/sockets 0771 wifi wifi
+        mkdir /data/misc/dhcp 0771 dhcp dhcp
+
+on boot
+	# touchscreen drivers
+	insmod /system/lib/modules/ft5x_ts.ko
+	
+	# gpu drivers
+        insmod /system/lib/modules/ump.ko
+        insmod /system/lib/modules/mali.ko
+
+	# gsensor drivers
+	insmod /system/lib/modules/mma7660.ko
+
+	# vibration driver
+	insmod /system/lib/modules/sun4i-vibrator.ko
+        chown system system /sys/class/timed_output/sun4i-vibrator/enable
+	chmod 777 /sys/class/timed_output/sun4i-vibrator/enable
+
+	# camera drivers
+	insmod /system/lib/modules/videobuf-core.ko
+	insmod /system/lib/modules/videobuf-dma-contig.ko
+	insmod /system/lib/modules/gc0308.ko
+	insmod /system/lib/modules/sun4i_csi0.ko
+
+	# network drivers
+	insmod /system/lib/modules/usbnet.ko
+	insmod /system/lib/modules/asix.ko
+	insmod /system/lib/modules/qf9700.ko
+	insmod /system/lib/modules/mcs7830.ko
+	insmod /system/lib/modules/rtl8150.ko
+
+        write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor fantasy
+
+# wifi related service
+service wpa_supplicant /system/bin/wpa_supplicant -Dwext -i wlan0 -c /data/misc/wifi/wpa_supplicant.conf -e /data/misc/wifi/entropy.bin
+    class main
+    socket wpa_wlan0 dgram 660 wifi wifi
+    group system wifi inet
+    disabled
+    oneshot
+
+# dhcpcd daemons
+service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot    
+
+service iprenew_wlan0 /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot    
+
+service iprenew_eth0 /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+service u3gmonitor /system/bin/u3gmonitor
+    class main
+    user root
+    group root
+    oneshot
+
+service hciattach /system/bin/hciattach -n -s 115200 /dev/ttyS1 rda 1500000
+    class main
+    user root
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
