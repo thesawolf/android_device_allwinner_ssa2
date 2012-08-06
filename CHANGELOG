@@ -1,0 +1,61 @@
+0.0.5 - updated repo to koush's latest 6.0.1.1 build
+	moved device and recovery code/files over to github (yay)
+
+0.0.4 - script/script0.bin edits in bootloader to make accessing
+	recovery mode from hardware keys possible.
+	Hold down VOL+, then press POWER at same time for ~5 seconds,
+	let go of POWER, then let go of VOL+ 1-5 seconds later
+
+0.0.3 -	CWMR work has begun. Did a few cosmetic changes
+	- Changed background image
+	- Changed default background icon to personal thesawolf cwm icon
+	- Changed the menu highlight colour from cyan to blue to make it
+	  easier to read, white on cyan was hard to read at various angles
+	- Added Power off option to menu
+	- Made "Go Back" option from submenus active at all times
+
+0.0.2 - Restructure and simplify device files for CM/CWM build 
+	(from allwinner-dev-team and christian troy models)
+	Made Alpha2 specific, a10's may have common ground but
+	ran into too much kernel/module bloat and hw differences
+	NOTE: will push this to my own github repo later
+
+0.0.1 - It has begun. ClockworkMod 6.0.1.0 and CyanogenMod9 pulled from
+	github repo. Originally used Amery's A10 repo for allwinner 
+	kernel 3.0.38 but ran into issues so used allwinner-dev-team's
+	kernel 3.0.36 and common framework to build off of. 
+	Successfully compiled. Lots of issues. Working with CWM recovery
+	first so have a launchpad to work off of instead of having to 
+	keep livesuit image reinstalling.
+
+	Issues:
+	[CWM] no back button support unless up/down a few times and given
+	menu option
+	[CWM] no working hardware keys option to enter recovery mode
+	(tried various combinations and timings of VOL+/PWR, VOL-/PWR,
+	VOL+/VOL-/PWR)
+	[CWM] mount usb storage not working
+	[CM9] bootanimation - wrong dimensions
+	[CM9] no touchscreen hardware keys
+	[CM9] interface is phone interface, not loading tablet UI
+	[CM9] camera - pictures are saved backwards
+	[CM9] camera - zoom in/out not working app
+	[CM9] camera - app, restore default settings crashes app
+	[CM9] display - the option to show touchscreen presses in debug
+	      not working, rest of debug works fine
+
+	Tested:
+	[CWM] Install zips, nandroid backup/restores (to/from internal/
+	      external sdcard), nandroid deletes (ditto), wipe data/reset,
+              mounts, most of advanced menu, adb access
+	[CM9] Camera, Video, Microphone, Speakers, Headphones, Wifi,
+	      Touchscreen, sdcard (internal/external), adb access, couple
+	      basic Apps
+
+	Untested:
+	[CWM] advanced restore, partition sd card, fix permissions
+	[CM9] actually.. on the skypad itself, too
+	      usb devices (ie. otg keyboard, etc.) support is in the kernel
+	      and modules, but no way to fully test
+	      hdmi output (don't have a HDMI cable to test this out)
+	

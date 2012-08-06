@@ -1,0 +1,21 @@
+android_device_allwinner_ssa2
+=============================
+
+Skytex Skypad Alpha2 (SSA2) Device for building CM9
+
+Initially based off of allwinner-dev-team sample model and some of 
+christiantroy's a10 device setups but made specifically for the Alpha2.
+
+Your Alpha2 MUST be updated/flashed to the latest ICS firmware/build
+(insert URL later)
+
+This build REQUIRES:
+
+A working Linux build environment (insert URL for instructions)
+CyanogenMod9 ICS source from cyanogen's github (insert URL)
+Allwinner A10 kernel sources from amery's github (insert URL)
+
+Proper instructions will go here later.
+
+Steve Wilson
+(thesawolf@gmail.com)
