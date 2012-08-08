@@ -22,23 +22,6 @@ PRODUCT_CHARACTERISTICS := tablet
 
 PRODUCT_TAGS += dalvik.gc.type-precise
 
-# added for build - SAW
-# Prebuilt libraries that are needed to build open-source libraries
-PRODUCT_COPY_FILES += \
-    device/allwinner/ssa2/proprietary/lib/libMali.so:obj/lib/libMali.so \
-    device/allwinner/ssa2/proprietary/lib/libUMP.so:obj/lib/libUMP.so \
-
-PRODUCT_COPY_FILES += \
-    device/allwinner/ssa2/proprietary/lib/egl/libGLESv2_mali.so:system/lib/egl/libGLESv2_mali.so \
-    device/allwinner/ssa2/proprietary/lib/egl/libGLESv1_CM_mali.so:system/lib/egl/libGLESv1_CM_mali.so \
-    device/allwinner/ssa2/proprietary/lib/egl/libEGL_mali.so:system/lib/egl/libEGL_mali.so \
-    device/allwinner/ssa2/proprietary/lib/libMali.so:system/lib/libMali.so \
-    device/allwinner/ssa2/proprietary/lib/libUMP.so:system/lib/libUMP.so \
-    device/allwinner/ssa2/proprietary/lib/liballwinner-ril.so:system/lib/liballwinner-ril.so \
-    device/allwinner/ssa2/config/devicespecific.sh:recovery/root/sbin/devicespecific.sh \
-    device/allwinner/ssa2/prebuilt/lib/ft5x_ts.ko:recovery/root/lib/ft5x_ts.ko \
-#
-
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 PRODUCT_PROPERTY_OVERRIDES += \
         ro.com.google.locationfeatures=1 \
@@ -66,6 +49,18 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	view.touch_slop=2 \
 	view.minimum_fling_velocity=25 \
 	persist.sys.vold.switchexternal=0 \
+	persist.sys.strictmode.visual=0 \
+	persist.sys.strictmode.disable=1 \
+	dalvik.vm.verify-bytecode=false \
+	dalvik.vm.dexopt-flags=v=n,o=v \
+	dalvik.vm.execution-mode=int:jit \
+	ro.kernel.android.checkjni=0 \
+	dalk.vm.checkjni = false \
+	persist.sys.use_dithering=0 \
+	persist.sys.purgable_assets=0 \
+	windowsmgr.max_events_per_sec=240 \
+	updateme.disableinstalledapps=1 \
+	updateme.disablescripts=1
 
 DEVICE_PACKAGE_OVERLAYS += device/allwinner/ssa2/overlay
 
@@ -82,48 +77,7 @@ PRODUCT_COPY_FILES += \
         frameworks/base/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
         frameworks/base/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
         frameworks/base/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-        frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
-
-# Live wallpaper packages
-PRODUCT_PACKAGES := \
-    LiveWallpapers \
-    LiveWallpapersPicker \
-    MagicSmokeWallpapers \
-    HoloSpiralWallpaper \
-    VisualizationWallpapers \
-    librs_jni \
-
-# Publish that we support the live wallpaper feature.
-PRODUCT_COPY_FILES := \
-    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
-
-PRODUCT_COPY_FILES += \
-	device/allwinner/ssa2/init.rc:root/init.rc \
-	device/allwinner/ssa2/init.sun4i.rc:root/init.sun4i.rc \
-	device/allwinner/ssa2/init.sun4i.usb.rc:root/init.sun4i.usb.rc \
-	device/allwinner/ssa2/ueventd.sun4i.rc:root/ueventd.sun4i.rc \
-	device/allwinner/ssa2/config/camera.cfg:system/etc/camera.cfg \
-	device/allwinner/ssa2/config/media_profiles.xml:system/etc/media_profiles.xml \
-	device/allwinner/ssa2/config/axp20-supplyer.kl:system/usr/keylayout/axp20-supplyer.kl \
-	device/allwinner/ssa2/config/ft5x_ts.kl:system/usr/keylayout/ft5x_ts.kl \
-	device/allwinner/ssa2/config/sun4i-keyboard.kl:system/usr/keylayout/sun4i-keyboard.kl \
-	device/allwinner/ssa2/config/ft5x_ts.idc:system/usr/idc/ft5x_ts.idc
-
-# prebuilts
-PRODUCT_COPY_FILES += \
-	device/allwinner/ssa2/prebuilt/app/UpdateMe.apk:system/app/UpdateMe.apk \
-	device/allwinner/ssa2/prebuilt/update_me.xml:system/update_me.xml \
-	device/allwinner/ssa2/prebuilt/bin/reboot-recovery.sh:system/bin/reboot-recovery.sh \
-	device/allwinner/ssa2/prebuilt/bin/preinstall.sh:system/bin/preinstall.sh
-
-# runs after recovery boot
-PRODUCT_COPY_FILES += device/allwinner/ssa2/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh
-
-# let us use the storage
-PRODUCT_COPY_FILES += device/allwinner/ssa2/vold.fstab:system/etc/vold.fstab
-
-# include a wpa_supplicant.conf file
-PRODUCT_COPY_FILES += device/allwinner/ssa2/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
+        frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
 
 # EXT4 Support
 PRODUCT_PACKAGES += \
@@ -152,7 +106,65 @@ PRODUCT_PACKAGES += libCedarA \
         libswdrm
 #
 
-$(call inherit-product, frameworks/base/build/tablet-dalvik-heap.mk)
-$(call inherit-product, build/target/product/full_base.mk)
+# Live wallpaper packages
+PRODUCT_PACKAGES := \
+    LiveWallpapers \
+    LiveWallpapersPicker \
+    MagicSmokeWallpapers \
+    HoloSpiralWallpaper \
+    VisualizationWallpapers \
+    librs_jni \
+
+# added for build - SAW
+# Prebuilt libraries that are needed to build open-source libraries
+PRODUCT_COPY_FILES += \
+    device/allwinner/ssa2/proprietary/lib/libMali.so:obj/lib/libMali.so \
+    device/allwinner/ssa2/proprietary/lib/libUMP.so:obj/lib/libUMP.so \
+
+PRODUCT_COPY_FILES += \
+    device/allwinner/ssa2/proprietary/lib/egl/libGLESv2_mali.so:system/lib/egl/libGLESv2_mali.so \
+    device/allwinner/ssa2/proprietary/lib/egl/libGLESv1_CM_mali.so:system/lib/egl/libGLESv1_CM_mali.so \
+    device/allwinner/ssa2/proprietary/lib/egl/libEGL_mali.so:system/lib/egl/libEGL_mali.so \
+    device/allwinner/ssa2/proprietary/lib/libMali.so:system/lib/libMali.so \
+    device/allwinner/ssa2/proprietary/lib/libUMP.so:system/lib/libUMP.so \
+    device/allwinner/ssa2/proprietary/lib/liballwinner-ril.so:system/lib/liballwinner-ril.so \
+    device/allwinner/ssa2/config/devicespecific.sh:recovery/root/sbin/devicespecific.sh \
+    device/allwinner/ssa2/prebuilt/lib/ft5x_ts.ko:recovery/root/lib/ft5x_ts.ko \
+#
+
+# runs after recovery boot
+PRODUCT_COPY_FILES += device/allwinner/ssa2/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh
+
+PRODUCT_COPY_FILES += \
+	device/allwinner/ssa2/init.rc:root/init.rc \
+	device/allwinner/ssa2/init.sun4i.rc:root/init.sun4i.rc \
+	device/allwinner/ssa2/init.sun4i.usb.rc:root/init.sun4i.usb.rc \
+	device/allwinner/ssa2/ueventd.sun4i.rc:root/ueventd.sun4i.rc \
+	device/allwinner/ssa2/config/camera.cfg:system/etc/camera.cfg \
+	device/allwinner/ssa2/config/media_profiles.xml:system/etc/media_profiles.xml \
+	device/allwinner/ssa2/config/axp20-supplyer.kl:system/usr/keylayout/axp20-supplyer.kl \
+	device/allwinner/ssa2/config/ft5x_ts.kl:system/usr/keylayout/ft5x_ts.kl \
+	device/allwinner/ssa2/config/sun4i-keyboard.kl:system/usr/keylayout/sun4i-keyboard.kl \
+	device/allwinner/ssa2/config/ft5x_ts.idc:system/usr/idc/ft5x_ts.idc
+
+# prebuilts
+PRODUCT_COPY_FILES += \
+	device/allwinner/ssa2/prebuilt/app/UpdateMe.apk:system/app/UpdateMe.apk \
+	device/allwinner/ssa2/prebuilt/update_me.xml:system/update_me.xml \
+	device/allwinner/ssa2/prebuilt/bin/reboot-recovery.sh:system/bin/reboot-recovery.sh \
+	device/allwinner/ssa2/prebuilt/bin/preinstall.sh:system/bin/preinstall.sh
+
+# let us use the storage
+PRODUCT_COPY_FILES += device/allwinner/ssa2/vold.fstab:system/etc/vold.fstab
+
+# include a wpa_supplicant.conf file
+PRODUCT_COPY_FILES += device/allwinner/ssa2/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
+
+# Publish that we support the live wallpaper feature.
+PRODUCT_COPY_FILES := \
+    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
+
+#$(call inherit-product, frameworks/base/build/tablet-dalvik-heap.mk)
+#$(call inherit-product, build/target/product/full_base.mk)
 
 # PRODUCT_LOCALES += mdpi

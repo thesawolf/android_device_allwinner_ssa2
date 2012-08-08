@@ -59,8 +59,8 @@ BOARD_UMS_2ND_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun1/fi
 TARGET_RECOVERY_INITRC := device/allwinner/ssa2/recovery_init.rc
 
 #Misc stuff
-#TARGET_USE_CUSTOM_LUN_FILE_PATH = "/sys/class/android_usb/android0/f_mass_storage/lun%d/file"
-#TARGET_USE_CUSTOM_SECOND_LUN_NUM := 1
+TARGET_USE_CUSTOM_LUN_FILE_PATH = "/sys/class/android_usb/android0/f_mass_storage/lun%d/file"
+TARGET_USE_CUSTOM_SECOND_LUN_NUM := 1
 TARGET_RECOVERY_PRE_COMMAND := "echo -n boot-recovery | busybox dd of=/dev/block/nandf count=1 conv=sync; sync"
 TARGET_PROVIDES_INIT_RC := true
 
@@ -87,7 +87,7 @@ BOARD_KERNEL_CMDLINE := console=ttyS0,115200 rw init=/init loglevel=8
 BOARD_KERNEL_PAGESIZE := 2048
 
 TARGET_KERNEL_SOURCE := kernel/allwinner/a10
-TARGET_KERNEL_CONFIG := device/allwinner/ssa2/ssa2_defconfig
+TARGET_KERNEL_CONFIG := ssa2_defconfig
 
 SW_BOARD_USES_GSENSOR_TYPE := mma7660
 SW_BOARD_GSENSOR_XY_REVERT := true
