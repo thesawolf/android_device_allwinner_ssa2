@@ -7,7 +7,7 @@ on init
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
-
+    export INTERNAL_STORAGE /emmc
     symlink /system/etc /etc
 
     mkdir /boot
@@ -21,7 +21,8 @@ on init
     mkdir /bootloader
     mount tmpfs tmpfs /tmp
     mount vfat /dev/block/nandi /emmc
-    
+    mount vfat /dev/block/mmcblk0p1 /sdcard
+
     write /sys/devices/virtual/bdi/179:0/read_ahead_kb 2048
     write /sys/devices/virtual/bdi/7:0/read_ahead_kb 2048
     write /sys/devices/virtual/bdi/93:0/read_ahead_kb 2048
@@ -51,7 +52,7 @@ on property:ro.debuggable=1
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 18D1
     write /sys/class/android_usb/android0/idProduct D001
-    write /sys/class/android_usb/android0/functions adb,mass_storage
+    write /sys/class/android_usb/android0/functions mass_storage,adb
     #write /sys/class/android_usb/android0/enable 1
     write /sys/class/android_usb/android0/iManufacturer $ro.product.manufacturer
     write /sys/class/android_usb/android0/iProduct $ro.product.model
