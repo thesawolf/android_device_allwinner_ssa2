@@ -25,9 +25,9 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 PRODUCT_PROPERTY_OVERRIDES += \
         ro.com.google.locationfeatures=1 \
-        ro.media.dec.jpeg.memcap=8000000 \
+        ro.media.dec.jpeg.memcap=20000000 \
 	ro.media.enc.hprof.vid.bps=800000 \
-        dalvik.vm.lockprof.threshold=500 \
+        dalvik.vm.lockprof.threshold=256 \
         dalvik.vm.dexopt-data-only=1 \
         ro.vold.umsdirtyratio=20 \
         hwui.render_dirty_regions=false \
@@ -35,10 +35,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
         ro.display.switch=1 \
         ro.opengles.version=131072 \
         wifi.interface=wlan0 \
-        wifi.supplicant_scan_interval=60 \
+        wifi.supplicant_scan_interval=120 \
         ro.carrier=wifi-only \
 	persist.sys.root_access=3 \
-	ro.sf.lcd_density=160 \
+	ro.sf.lcd_density=120 \
+	qemu.sf.lcd_density=120 \
+	ro.sys.def_font_scale=100 \
 	ro.additionalmounts = /mnt/extsd \
 	ro.vold.switchablepair=/mnt/sdcard,/mnt/extsd \
 	debug.egl.hw=1 \
@@ -55,10 +57,22 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	dalvik.vm.dexopt-flags=v=n,o=v \
 	dalvik.vm.execution-mode=int:jit \
 	ro.kernel.android.checkjni=0 \
-	dalk.vm.checkjni = false \
-	persist.sys.use_dithering=0 \
-	persist.sys.purgable_assets=0 \
+	dalk.vm.checkjni = true \
+	persist.sys.use_dithering=1 \
+	persist.sys.purgeable_assets=1 \
 	windowsmgr.max_events_per_sec=240 \
+	ro.debuggable=1 \
+	ro.telephony.disable-call=true \
+	persist.adb.notify=0 \
+	persist.service.adb.enable=1 \
+	ro.hwui.layer_cache_size=0 \
+	ro.hwui.texture_cache_size=28 \
+	ro.product.use_charge_counter=1 \
+	ro.min_maximum_point=15 \
+	ro.min_pointer_dur=10 \
+	keyguard.no_require_sim=1 \
+	ro.sf.hw=1 \
+	ro.sf.hwrotation=0 \
 	updateme.disableinstalledapps=1 \
 	updateme.disablescripts=1 
 
@@ -77,6 +91,10 @@ PRODUCT_COPY_FILES := \
 	device/allwinner/ssa2/proprietary/lib/liballwinner-ril.so:system/lib/liballwinner-ril.so \
 	device/allwinner/ssa2/config/devicespecific.sh:recovery/root/sbin/devicespecific.sh \
 	device/allwinner/ssa2/prebuilt/lib/ft5x_ts.ko:recovery/root/lib/ft5x_ts.ko \
+	device/allwinner/ssa2/config/axp20-supplyer.kl:recovery/root/system/usr/keylayout/axp20-supplyer.kl \
+	device/allwinner/ssa2/config/ft5x_ts.kl:recovery/root/system/usr/keylayout/ft5x_ts.kl \
+	device/allwinner/ssa2/config/sun4i-keyboard.kl:recovery/root/system/usr/keylayout/sun4i-keyboard.kl \
+	device/allwinner/ssa2/config/ft5x_ts.idc:recovery/root/system/usr/idc/ft5x_ts.idc \
 	device/allwinner/ssa2/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh \
 	device/allwinner/ssa2/init.rc:root/init.rc \
 	device/allwinner/ssa2/init.sun4i.rc:root/init.sun4i.rc \

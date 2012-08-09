@@ -1,2 +1,2 @@
 #!/sbin/sh
-/sbin/insmod /lib/ft4x_ts.ko
+/sbin/insmod /lib/ft5x_ts.ko
