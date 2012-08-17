@@ -89,7 +89,7 @@ on boot
 	insmod /system/lib/modules/mcs7830.ko
 	insmod /system/lib/modules/rtl8150.ko
 
-        write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor fantasy
+        write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor performance
 
 # wifi related service
 service wpa_supplicant /system/bin/wpa_supplicant -Dwext -i wlan0 -c /data/misc/wifi/wpa_supplicant.conf -e /data/misc/wifi/entropy.bin

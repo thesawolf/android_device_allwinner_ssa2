@@ -15,7 +15,7 @@
 TARGET_BOOTLOADER_BOARD_NAME := a10
 TARGET_BOARD_PLATFORM := sun4i
 
-USE_CAMERA_STUB := false
+USE_CAMERA_STUB := true
 BOARD_USES_GENERIC_AUDIO := false
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
@@ -51,7 +51,7 @@ TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 #TARGET_RECOVERY_UI_LIB := librecovery_ui_generic
 #TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_generic
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/allwinner/ssa2/recovery_keys.c
-#TARGET_RECOVERY_PRE_COMMAND := "setrecovery"
+TARGET_RECOVERY_PRE_COMMAND := "setrecovery"
 BOARD_USE_LEGACY_TOUCHSCREEN := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun/file"
@@ -61,7 +61,7 @@ TARGET_RECOVERY_INITRC := device/allwinner/ssa2/recovery_init.rc
 #Misc stuff
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/class/android_usb/android0/f_mass_storage/lun%d/file"
 TARGET_USE_CUSTOM_SECOND_LUN_NUM := 1
-TARGET_RECOVERY_PRE_COMMAND := "echo -n boot-recovery | busybox dd of=/dev/block/nandf count=1 conv=sync; sync"
+#TARGET_RECOVERY_PRE_COMMAND := "echo -n boot-recovery | busybox dd of=/dev/block/nandf count=1 conv=sync; sync"
 TARGET_PROVIDES_INIT_RC := true
 
 #Headers stuff
