@@ -25,62 +25,99 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 PRODUCT_PROPERTY_OVERRIDES += \
         ro.com.google.locationfeatures=1 \
+        ro.display.switch=1 \
+        ro.opengles.version=131072 \
         ro.media.dec.jpeg.memcap=8000000 \
 	ro.media.enc.hprof.vid.bps=8000000 \
-        dalvik.vm.lockprof.threshold=250 \
+	ro.media.enc.jpeg.quality=100 \
+        ro.vold.umsdirtyratio=20 \
+        ro.carrier=wifi-only \
+	ro.sf.lcd_density=120 \
+	ro.product.firmware=1.1 \
+	ro.additionalmounts = /mnt/extsd \
+	ro.vold.switchablepair=/mnt/sdcard,/mnt/extsd \
+	ro.kernel.android.checkjni=0 \
+	ro.kernel.checkjni=0 \
+	ro.setupwizard.mode=OPTIONAL \
+	ro.suspend.unloadWifiDriver=true \
+	ro.telephony.default_network=4 \
+	ro.telephony.disable-call=true \
+	ro.debuggable=1 \
+	ro.phone_storage=0 \
+	ro.telephony.call_ring.multiple=false \
+	ro.com.android.dataroaming=true \
+	ro.config.nocheckin=1 \
+	ro.compcache.default=0 \
+	ro.config.hw_fast_dormancy=1 \
+	ro.HorizontalVVM=true \
+	ro.HorizontalBUA=true \
+	ro.browser.useragent=1 \
+	ro.secure=0 \
+	ro.mot.bindervm.config=100 \
+	ro.mot.dalvik.warnonly=true \
+	ro.ril.disable.power.collapse=0 \
+	ro.sf.hw=1 \
+	ro.sys.def_font_scale=100 \
+	browser.tioptimization=true \
+        dalvik.vm.lockprof.threshold=512 \
         dalvik.vm.dexopt-data-only=1 \
 	dalvik.vm.checkjni=false \
 	dalvik.vm.jmiopts=forcecopy \
 	dalvik.vm.stack-trace-file=/data/anr/traces.txt \
-        ro.vold.umsdirtyratio=20 \
+	dalvik.vm.verify-bytecode=false \
+	dalvik.vm.dexopt-flags=v=n,o=v \
+	dalvik.vm.execution-mode=int:jit \
+	dalvik.vm.heapstartsize=5m \
+	dalvik.vm.heapgrowthlimit=128m \
+	dalvik.vm.heapsize=256m \
+	dalvik.vm.minheapsize=5m \
         hwui.render_dirty_regions=false \
-        persist.sys.usb.config=adb,mass_storage \
-        ro.display.switch=1 \
-        ro.opengles.version=131072 \
-        wifi.interface=wlan0 \
-        wifi.supplicant_scan_interval=120 \
-        ro.carrier=wifi-only \
+	keyguard.no_require_sim=true \
+        persist.sys.usb.config=mass_storage,adb \
 	persist.sys.root_access=3 \
-	ro.sf.lcd_density=120 \
-	ro.additionalmounts = /mnt/extsd \
-	ro.vold.switchablepair=/mnt/sdcard,/mnt/extsd \
-	debug.egl.hw=1 \
-	ro.media.enc.jpeg.quality=100 \
-	debug.sf.hw=1 \
-	video.accelerate.hw=1 \
-	debug.performance.tuning=1 \
 	persist.sys.vold.switchexternal=0 \
 	persist.sys.strictmode.visual=0 \
 	persist.sys.strictmode.disable=1 \
-	dalvik.vm.verify-bytecode=false \
-	dalvik.vm.dexopt-flags=m=v,o=y \
-	dalvik.vm.execution-mode=int:jit \
-	ro.kernel.android.checkjni=0 \
-	ro.kernel.checkjni=0 \
-	windowsmgr.max_events_per_sec=120 \
-	debug.enabletr=true \
 	persist.sys.purgeable_assets=1 \
 	persist.sys.use_dithering=0 \
+	persist.sys.ui.hw=1 \
+	persist.service.adb.enable=1 \
+	persist.sampling_profiler=1 \
+	pm.sleep_mode=1 \
+        wifi.interface=wlan0 \
+        wifi.supplicant_scan_interval=120 \
+	debug.egl.hw=1 \
+	debug.sf.hw=1 \
+	debug.performance.tuning=1 \
+	debug.composition.type=cpu \
+	debug.egl.profiler=1 \
+	debug.sf.enable_hgl=1 \
+	debug.kill_allocating_task=0 \
+	debug.overlayui.enable=0 \
+	debug.sf.reboot=1 \
+	video.accelerate.hw=1 \
+	windowsmgr.max_events_per_sec=120 \
 	media.stagefright.enable-player=true \
 	media.stagefright.enable-meta=true \
-	media.stagefright.enable-scan=false \
+	media.stagefright.enable-scan=true \
 	media.stagefright.enable-http=true \
-	media.stagefright.enable-rtsp=true \
-	media.stagefright.enable-record=true \
-	net.tcp.buffersize.default=4096,87380,256960,4096,16384,256960 \
-	net.tcp.buffersize.wifi=4096,87380,256960,4096,16384,256960 \
-	keyguard.no_require_sim=true \
-	dalvik.vm.heapstartsize=5m \
-	dalvik.vm.heapgrowthlimit=48m \
-	dalvik.vm.heapsize=64m \
-	pm.sleep_mode=1 \
-	ro.ril.disable.power.collapse=0 \
-	dev.sfbootcomplete=0 \
-	ro.config.nocheckin=1 \
-	persist.sys.ui.hw=1 \
-	debug.composition.type=gpu \
+	net.tcp.buffersize.default=87380,174760,349520,87380,174760,349520 \
+	net.tcp.buffersize.wifi=87380,174760,349520,87380,174760,349520 \
+	net.core.netdev_max_backlog=2500 \
+	net.core.rmem_max=349520 \
+	net.core.wmem_max=349520 \
+	net.ipv4.tcp_rmem=87380,174760,349520 \
+	net.ipv4.tcp_wmem=87380,174760,349520 \
+	net.ipv4.tcp_no_metrics_save=1 \
+	net.ipv4.tcp_moderate_rcvbuf=1 \
+	net.ipv4.tcp_window_scaling=1 \
+	net.ipv4.ip_forward=1 \
+	net.ipv4.route.flush=1 \
+	net.ipv4.tcp_sack=1 \
 	view.touch_slop=2 \
 	view.minimum_fling_velocity=25 \
+	rild.libpath=/system/lib/liballwinner-ril.so \
+	rild.libargs=-d /dev/ttyUSB2 \
 	updateme.disableinstalledapps=1 \
 	updateme.disablescripts=1 \
 
@@ -97,8 +134,9 @@ PRODUCT_COPY_FILES := \
 	device/allwinner/ssa2/proprietary/lib/libMali.so:system/lib/libMali.so \
 	device/allwinner/ssa2/proprietary/lib/libUMP.so:system/lib/libUMP.so \
 	device/allwinner/ssa2/proprietary/lib/liballwinner-ril.so:system/lib/liballwinner-ril.so \
+	external/cedarx/CedarAndroidLib/LIB_ICS_F23/libstagefright_soft_cedar_h264dec.so:system/lib/libstagefright_soft_cedar_h264dec.so \
 	device/allwinner/ssa2/config/devicespecific.sh:recovery/root/sbin/devicespecific.sh \
-	device/allwinner/ssa2/prebuilt/lib/ft5x_ts.ko:recovery/root/lib/ft5x_ts.ko \
+	device/allwinner/ssa2/prebuilt/kernel/modules/ft5x_ts.ko:recovery/root/lib/ft5x_ts.ko \
 	device/allwinner/ssa2/config/axp20-supplyer.kl:recovery/root/system/usr/keylayout/axp20-supplyer.kl \
 	device/allwinner/ssa2/config/ft5x_ts.kl:recovery/root/system/usr/keylayout/ft5x_ts.kl \
 	device/allwinner/ssa2/config/sun4i-keyboard.kl:recovery/root/system/usr/keylayout/sun4i-keyboard.kl \
@@ -120,7 +158,12 @@ PRODUCT_COPY_FILES := \
 	device/allwinner/ssa2/prebuilt/bin/preinstall.sh:system/bin/preinstall.sh \
 	device/allwinner/ssa2/vold.fstab:system/etc/vold.fstab \
 	device/allwinner/ssa2/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-	packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
+	packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml \
+	device/allwinner/ssa2/proprietary/firmware/ft5306-sc3058-1024X768.bin:system/vendor/firmware/ft5306-sc3058-1024X768.bin \
+
+# kernel stuff
+PRODUCT_COPY_FILES += \
+	$(call find-copy-subdir-files,*,device/allwinner/ssa2/prebuilt/kernel/3036/modules,system/lib/modules)
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -135,7 +178,9 @@ PRODUCT_COPY_FILES += \
         frameworks/base/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
         frameworks/base/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
         frameworks/base/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-        frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
+	frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
+        frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
+	frameworks/base/data/etc/com.tmobile.software.themes.xml:system/etc/permissions/com.tmobile.software.themes.xml
 
 # EXT4 Support
 PRODUCT_PACKAGES += \

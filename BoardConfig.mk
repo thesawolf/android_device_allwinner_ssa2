@@ -86,8 +86,9 @@ BOARD_KERNEL_BASE := 0x40000000
 BOARD_KERNEL_CMDLINE := console=ttyS0,115200 rw init=/init loglevel=8
 BOARD_KERNEL_PAGESIZE := 2048
 
-TARGET_KERNEL_SOURCE := kernel/allwinner/a10
-TARGET_KERNEL_CONFIG := ssa2_defconfig
+#TARGET_KERNEL_SOURCE := kernel/allwinner/a10
+#TARGET_KERNEL_CONFIG := ssa2_defconfig
+TARGET_PREBUILT_KERNEL := device/allwinner/ssa2/prebuilt/kernel/3036/kernel
 
 SW_BOARD_USES_GSENSOR_TYPE := mma7660
 SW_BOARD_GSENSOR_XY_REVERT := true
