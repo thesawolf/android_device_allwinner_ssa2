@@ -136,7 +136,7 @@ PRODUCT_COPY_FILES := \
 	device/allwinner/ssa2/proprietary/lib/liballwinner-ril.so:system/lib/liballwinner-ril.so \
 	external/cedarx/CedarAndroidLib/LIB_ICS_F23/libstagefright_soft_cedar_h264dec.so:system/lib/libstagefright_soft_cedar_h264dec.so \
 	device/allwinner/ssa2/config/devicespecific.sh:recovery/root/sbin/devicespecific.sh \
-	device/allwinner/ssa2/prebuilt/kernel/modules/ft5x_ts.ko:recovery/root/lib/ft5x_ts.ko \
+	device/allwinner/ssa2/prebuilt/kernel/3036/modules/ft5x_ts.ko:recovery/root/lib/ft5x_ts.ko \
 	device/allwinner/ssa2/config/axp20-supplyer.kl:recovery/root/system/usr/keylayout/axp20-supplyer.kl \
 	device/allwinner/ssa2/config/ft5x_ts.kl:recovery/root/system/usr/keylayout/ft5x_ts.kl \
 	device/allwinner/ssa2/config/sun4i-keyboard.kl:recovery/root/system/usr/keylayout/sun4i-keyboard.kl \
@@ -159,11 +159,12 @@ PRODUCT_COPY_FILES := \
 	device/allwinner/ssa2/vold.fstab:system/etc/vold.fstab \
 	device/allwinner/ssa2/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
 	packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml \
-	device/allwinner/ssa2/proprietary/firmware/ft5306-sc3058-1024X768.bin:system/vendor/firmware/ft5306-sc3058-1024X768.bin \
+	device/allwinner/ssa2/proprietary/firmware/ft5306-sc3058-1024X768.bin:system/vendor/firmware/ft5x_firmware \
+	device/allwinner/ssa2/config/script.bin:system/etc/script.bin \
 
 # kernel stuff
-PRODUCT_COPY_FILES += \
-	$(call find-copy-subdir-files,*,device/allwinner/ssa2/prebuilt/kernel/3036/modules,system/lib/modules)
+#PRODUCT_COPY_FILES += \
+#	$(call find-copy-subdir-files,*,device/allwinner/ssa2/prebuilt/kernel/3036b/modules,system/lib/modules)
 
 # Permissions
 PRODUCT_COPY_FILES += \
