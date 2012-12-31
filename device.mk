@@ -119,7 +119,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	rild.libpath=/system/lib/liballwinner-ril.so \
 	rild.libargs=-d /dev/ttyUSB2 \
 	updateme.disableinstalledapps=1 \
-	updateme.disablescripts=1 \
+	updateme.disablescripts=1
 
 DEVICE_PACKAGE_OVERLAYS += device/allwinner/ssa2/overlay
 
@@ -160,7 +160,7 @@ PRODUCT_COPY_FILES := \
 	device/allwinner/ssa2/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
 	packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml \
 	device/allwinner/ssa2/proprietary/firmware/ft5306-sc3058-1024X768.bin:system/vendor/firmware/ft5x_firmware \
-	device/allwinner/ssa2/config/script.bin:system/etc/script.bin \
+	device/allwinner/ssa2/config/script.bin:system/etc/script.bin
 
 # kernel stuff
 #PRODUCT_COPY_FILES += \
@@ -186,7 +186,7 @@ PRODUCT_COPY_FILES += \
 # EXT4 Support
 PRODUCT_PACKAGES += \
 	make_ext4fs \
-	e2fsck \
+	e2fsck
 
 # Hardware support
 PRODUCT_PACKAGES += audio.primary.sun4i \
@@ -197,7 +197,7 @@ PRODUCT_PACKAGES += audio.primary.sun4i \
         hwcomposer.sun4i \
         lights.sun4i \
         sensors.sun4i \
-        setrecovery \
+        setrecovery
 #
 
 # CedarX libraries
@@ -207,7 +207,7 @@ PRODUCT_PACKAGES += libCedarA \
         libcedarxbase \
         libcedarxosal \
         libcedarxsftdemux \
-        libswdrm \
+        libswdrm
 #
 
 # Live wallpaper packages
@@ -217,7 +217,7 @@ PRODUCT_PACKAGES += \
     MagicSmokeWallpapers \
     HoloSpiralWallpaper \
     VisualizationWallpapers \
-    librs_jni \
+    librs_jni
 
 #$(call inherit-product, frameworks/base/build/tablet-dalvik-heap.mk)
 #$(call inherit-product, build/target/product/full_base.mk)
